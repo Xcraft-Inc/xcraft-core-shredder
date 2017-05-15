@@ -1,0 +1,34 @@
+{
+  "name": "xcraft-core-shredder",
+  "version": "0.0.1",
+  "description": "Xcraft shredder",
+  "main": "lib/shredder.js",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "test": "mocha test/**/*.spec.js"
+  },
+  "keywords": [
+    "xcraft",
+    "service",
+    "micro",
+    "uService"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xcraft-Inc/xcraft-core-goblin.git"
+  },
+  "author": "Samuel Loup & Mathieu Schroeter",
+  "license": "MIT",
+  "dependencies": {
+    "immutable": "^4.0.0-rc.2",
+    "lodash": "^4.17.4",
+    "xcraft-core-log": "^1.0.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.3.0",
+    "xcraft-dev-rules": "^0.1.3"
+  }
+}
