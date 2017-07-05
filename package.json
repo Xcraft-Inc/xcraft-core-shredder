@@ -24,6 +24,7 @@
   "dependencies": {
     "ienumerable": "^1.1.0",
     "immutable": "^4.0.0-rc.2",
+    "deep-equal": "^1.0.1",
     "lodash": "^4.17.4",
     "xcraft-core-log": "^1.0.0"
   },
