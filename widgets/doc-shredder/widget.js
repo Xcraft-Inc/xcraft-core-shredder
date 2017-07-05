@@ -1,23 +1,22 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-
-import Button from 'gadgets/button/widget';
+import Content from 'laboratory/content';
 import Container from 'gadgets/container/widget';
-import Label from 'gadgets/label/widget';
 
 class ShredderDoc extends Widget {
   constructor (props, context) {
     super (props, context);
   }
 
+  display (data) {
+    return JSON.stringify (data, null, '\n');
+  }
+
   renderPanel () {
     return (
-      <Container kind="pane">
-        <Container kind="row-pane">
-          <Label glyph="cube" text="Goblin Shredder" grow="1" kind="title" />
-        </Container>
-        <Container kind="row-pane" subkind="box">
-          ...
+      <Container kind="panes">
+        <Container kind="pane">
+          <Content widgetName="doc-shredder" />
         </Container>
       </Container>
     );
@@ -26,7 +25,9 @@ class ShredderDoc extends Widget {
   render () {
     return (
       <Container kind="views">
-        {this.renderPanel ()}
+        <Container kind="view">
+          {this.renderPanel ()}
+        </Container>
       </Container>
     );
   }
