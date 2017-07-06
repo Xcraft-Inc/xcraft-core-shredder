@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import Content from 'laboratory/content';
 import Container from 'gadgets/container/widget';
+import Readme from '../../README.md';
 
 class ShredderDoc extends Widget {
   constructor (props, context) {
@@ -16,7 +16,7 @@ class ShredderDoc extends Widget {
     return (
       <Container kind="panes">
         <Container kind="pane">
-          <Content widgetName="doc-shredder" />
+          <Readme />
         </Container>
       </Container>
     );
