@@ -8,10 +8,6 @@ class ShredderDoc extends Widget {
     super (props, context);
   }
 
-  display (data) {
-    return JSON.stringify (data, null, '\n');
-  }
-
   renderPanel () {
     return (
       <Container kind="panes">
