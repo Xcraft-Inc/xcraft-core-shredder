@@ -69,7 +69,7 @@ const logicHandlers = {
     const id = action.get ('id');
     const name = action.get ('name');
 
-    return state.set (`\${id}.name`, name);
+    return state.set (`${id}.name`, name);
   },
 };
 ```
