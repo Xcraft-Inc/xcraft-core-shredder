@@ -15,8 +15,8 @@ const logicHandlers = {
 
 ### Exemple state
 
-If we manage a collection of some entity, 
-we encourage to use entity `id` as key:
+If we manage a collection of some entity, we encourage to use entity `id` as
+key:
 
 ```js
 const exempleCollection = {
@@ -56,11 +56,10 @@ const logicHandlers = {
 };
 ```
 
-Note that we use `''` path for indicating the root
-of the the state.
+Note that we use `''` path (empty) for indicating the root of the the state.
 
-Then, in other handlers we can set specific properties,
-using `'id.property'` path.
+Then, in other handlers we can set specific properties, using `'id.property'`
+path.
 
 ```js
 const logicHandlers = {
@@ -74,7 +73,7 @@ const logicHandlers = {
 };
 ```
 
-Tips: use JS template for building the path
+Tips: use JS template for building the path.
 
 ### Get property value
 
@@ -126,7 +125,7 @@ const person = this.shred (this.props.person);
 
 ## Linq
 
-Shredder provide the famous IEnumerable API under `linq` property
+Shredder provides the famous IEnumerable API under the `linq` property.
 
 ```js
 const names = data
@@ -140,4 +139,4 @@ const firstVersion3 = data
         .first ();
 ```
 
-[Link to full API](https://ienumerable.js.org/)
+[Link to full API](https://ienumerable.js.org)
