@@ -125,7 +125,7 @@ const person = this.shred (this.props.person);
 
 ## Linq
 
-Shredder provides the famous IEnumerable API under the `linq` property.
+Shredder provides the famous IEnumerable API under the `.linq` property.
 
 ```js
 const names = data
@@ -138,5 +138,16 @@ const firstVersion3 = data
         .where (x => x.get ('version') === 3)
         .first ();
 ```
+
+For more power you can use `.shrinq` property,
+this time each enumerable is a Shredder wrapped value insteed of an immutable object.
+
+
+```js
+const names = data
+    .shrinq
+    .select (x => x.get ('person.name'))
+    .toList ();
+```      
 
 [Link to full API](https://ienumerable.js.org)
