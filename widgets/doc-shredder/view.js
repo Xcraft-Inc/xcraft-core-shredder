@@ -3,7 +3,7 @@ import View from 'laboratory/view';
 import ShredderDoc from 'core-shredder/doc-shredder/widget';
 
 class DocView extends View {
-  render () {
+  render() {
     return <ShredderDoc />;
   }
 }

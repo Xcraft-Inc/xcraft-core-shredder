@@ -1,30 +1,30 @@
 'use strict';
 
-const {expect} = require ('chai');
-const Shredder = require ('../lib/shredder.js');
+const {expect} = require('chai');
+const Shredder = require('../lib/shredder.js');
 const bimBam = {bim: 'bam'};
 const grosMinet = {gros: 'minet'};
 
-describe ('Shredder can', function () {
-  it ('#set', function () {
-    const s = new Shredder (bimBam);
-    const n = s.set ('titi', grosMinet);
+describe('Shredder can', function() {
+  it('#set', function() {
+    const s = new Shredder(bimBam);
+    const n = s.set('titi', grosMinet);
 
-    expect (n.toJS ()).to.be.eql (
-      Object.assign ({}, bimBam, {
+    expect(n.toJS()).to.be.eql(
+      Object.assign({}, bimBam, {
         titi: grosMinet,
       })
     );
 
-    expect (s.toJS ()).to.be.eql (bimBam);
+    expect(s.toJS()).to.be.eql(bimBam);
   });
 
-  it ('#set a cool path', function () {
-    const s = new Shredder (bimBam);
+  it('#set a cool path', function() {
+    const s = new Shredder(bimBam);
 
-    const n = s.set ('blim.bla.boom[1].splif[3].splaf', grosMinet);
+    const n = s.set('blim.bla.boom[1].splif[3].splaf', grosMinet);
 
-    expect (n.toJS ()).to.be.eql ({
+    expect(n.toJS()).to.be.eql({
       bim: 'bam',
       blim: {
         bla: {
@@ -45,13 +45,13 @@ describe ('Shredder can', function () {
       },
     });
 
-    expect (s.toJS ()).to.be.eql (bimBam);
+    expect(s.toJS()).to.be.eql(bimBam);
   });
 
-  it ('#del', function () {
-    const s = new Shredder (bimBam);
-    const n = s.del ('bim');
+  it('#del', function() {
+    const s = new Shredder(bimBam);
+    const n = s.del('bim');
 
-    expect (n.toJS ()).to.be.eql ({});
+    expect(n.toJS()).to.be.eql({});
   });
 });
