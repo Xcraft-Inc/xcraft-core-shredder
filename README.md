@@ -116,15 +116,3 @@ const logicHandlers = {
 ```js
 const person = this.shred(this.props.person);
 ```
-
-## Linq
-
-Shredder provides the famous IEnumerable API under the `.linq` property.
-
-```js
-const names = data.linq.select(x => x.get('name')).toList();
-
-const firstVersion3 = data.linq.where(x => x.get('version') === 3).first();
-```
-
-[Link to full API](https://ienumerable.js.org)
