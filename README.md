@@ -1,4 +1,3 @@
-
 # Xcraft Shredder
 
 ## State management
@@ -38,7 +37,7 @@ const exempleCollection = {
     version: 3,
     hp: '6000CH',
   },
-}
+};
 ```
 
 ### Set property value
@@ -80,9 +79,8 @@ Tips: use JS template for building the path.
 #### state.get (path, [optionalfallbackValue])
 
 ```js
-const nameOfId1 = state.get ('id1.name', null);
+const nameOfId1 = state.get('id1.name', null);
 ```
-
 
 ### Delete property value
 
@@ -99,7 +97,6 @@ const logicHandlers = {
 };
 ```
 
-
 If we want delete an entry:
 
 ```js
@@ -112,42 +109,22 @@ const logicHandlers = {
 };
 ```
 
-
 ## Using shredder in a widget (React side)
-
 
 #### this.shred (data)
 
 ```js
-const person = this.shred (this.props.person);
+const person = this.shred(this.props.person);
 ```
-
 
 ## Linq
 
 Shredder provides the famous IEnumerable API under the `.linq` property.
 
 ```js
-const names = data
-    .linq
-    .select (x => x.get ('name'))
-    .toList ();
+const names = data.linq.select(x => x.get('name')).toList();
 
-const firstVersion3 = data
-        .linq
-        .where (x => x.get ('version') === 3)
-        .first ();
+const firstVersion3 = data.linq.where(x => x.get('version') === 3).first();
 ```
-
-For more power you can use `.shrinq` property,
-this time each enumerable is a Shredder wrapped value insteed of an immutable object.
-
-
-```js
-const names = data
-    .shrinq
-    .select (x => x.get ('person.name'))
-    .toList ();
-```      
 
 [Link to full API](https://ienumerable.js.org)
