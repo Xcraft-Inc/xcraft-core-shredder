@@ -3,6 +3,7 @@
 const {expect} = require('chai');
 const Shredder = require('../lib/shredder.js');
 const bimBam = {bim: 'bam'};
+const bimBamBoum = [];
 const grosMinet = {gros: 'minet'};
 
 describe('Shredder can', function () {
@@ -53,5 +54,29 @@ describe('Shredder can', function () {
     const n = s.del('bim');
 
     expect(n.toJS()).to.be.eql({});
+  });
+
+  it('#test map vs mapShredder', function () {
+    let l = new Shredder(bimBamBoum);
+
+    for (let i = 0; i < 2_000_000; i++) {
+      l = l.push('', i);
+    }
+
+    for (let i = 0; i < 3; i++) {
+      console.time('test1: map');
+      l.map((item) => item);
+      console.timeEnd('test1: map');
+    }
+
+    for (let i = 0; i < 3; i++) {
+      console.time('test2: mapShredder');
+      let l = new Shredder(bimBamBoum);
+      l.map((item, ...args) => {
+        item = new Shredder(item);
+        return (item, ...args) => item;
+      });
+      console.timeEnd('test2: mapShredder');
+    }
   });
 });
