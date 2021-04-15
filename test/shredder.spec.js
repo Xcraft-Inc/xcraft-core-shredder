@@ -1,6 +1,7 @@
 'use strict';
 
 const {expect} = require('chai');
+const {fromJS} = require('../lib/shredder.js');
 const Shredder = require('../lib/shredder.js');
 const bimBam = {bim: 'bam'};
 const bimBamBoum = [];
@@ -56,6 +57,29 @@ describe('Shredder can', function () {
     expect(n.toJS()).to.be.eql({});
   });
 
+  it('#find', function () {
+    // Return value (not immutable)
+    let s = new Shredder(['glace', 'chat', 'bob']);
+    let res = s.find((item) => item === 'chat');
+    expect(res).to.be.eql('chat');
+
+    // Return shreddder immutable
+    s = new Shredder(
+      fromJS([{value: 'glace'}, {value: 'chat'}, {value: 'bob'}])
+    );
+    res = s.find((item) => item.get('value') === 'chat');
+    expect(res).to.be.eql(s.get('1'));
+
+    // Return null
+    s = new Shredder(
+      fromJS([{value: 'glace'}, {value: 'chat'}, {value: 'bob'}])
+    );
+    res = s.find((item) => item.get('value') === 'test');
+    expect(res).to.be.eql(null);
+  });
+});
+
+describe('Shredder perf.', function () {
   it('#test map vs mapShredder', function () {
     let l = new Shredder(bimBamBoum);
 
@@ -63,20 +87,25 @@ describe('Shredder can', function () {
       l = l.push('', i);
     }
 
-    for (let i = 0; i < 3; i++) {
-      console.time('test1: map');
+    for (let i = 1; i <= 3; i++) {
+      console.time(`test ${i} map`);
       l.map((item) => item);
-      console.timeEnd('test1: map');
+      console.timeEnd(`test ${i} map`);
     }
 
-    for (let i = 0; i < 3; i++) {
-      console.time('test2: mapShredder');
-      let l = new Shredder(bimBamBoum);
+    l = new Shredder(bimBamBoum);
+
+    for (let i = 0; i < 2_000_000; i++) {
+      l = l.push('', i);
+    }
+
+    for (let i = 1; i <= 3; i++) {
+      console.time(`test ${i} mapShredder`);
       l.map((item, ...args) => {
         item = new Shredder(item);
         return (item, ...args) => item;
       });
-      console.timeEnd('test2: mapShredder');
+      console.timeEnd(`test ${i} mapShredder`);
     }
   });
 });
