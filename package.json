@@ -4,7 +4,7 @@
   "description": "Xcraft shredder",
   "main": "lib/shredder.js",
   "engines": {
-    "node": ">=6"
+    "node": ">=14"
   },
   "scripts": {
     "test": "mocha test/**/*.spec.js"
