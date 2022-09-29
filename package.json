@@ -19,8 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "immutable": "4.0.0-rc.14",
-    "deep-equal": "^1.0.1",
-    "lodash": "^4.17.4"
+    "deep-equal": "^1.0.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
