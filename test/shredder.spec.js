@@ -21,6 +21,27 @@ describe('Shredder can', function () {
     expect(s.toJS()).to.be.eql(bimBam);
   });
 
+  it('#set an empty path', function () {
+    const s = new Shredder(bimBam);
+
+    const n = s.set('', grosMinet);
+
+    expect(n.toJS()).to.be.eql({gros: 'minet'});
+    expect(s.toJS()).to.be.eql(bimBam);
+  });
+
+  it('#set a simple path with a bracket', function () {
+    const s = new Shredder(bimBam);
+
+    const n = s.set('boom[1]', grosMinet);
+
+    expect(n.toJS()).to.be.eql({
+      bim: 'bam',
+      boom: [undefined, {gros: 'minet'}],
+    });
+    expect(s.toJS()).to.be.eql(bimBam);
+  });
+
   it('#set a cool path', function () {
     const s = new Shredder(bimBam);
 
@@ -79,33 +100,52 @@ describe('Shredder can', function () {
   });
 });
 
-describe('Shredder perf.', function () {
-  it('#test map vs mapShredder', function () {
+describe('Shredder perf. set/get', function () {
+  it('#test set/get', function () {
     let l = new Shredder(bimBamBoum);
 
-    for (let i = 0; i < 2_000_000; i++) {
-      l = l.push('', i);
+    for (let i = 1; i <= 3; ++i) {
+      let path;
+      console.time(`test ${i}`);
+      for (let i = 0; i < 2_000_000; i++) {
+        if (i % 100 === 0) {
+          path = `_${process.hrtime.bigint()}._${process.hrtime.bigint()}`;
+        }
+        l = l.set(path, i);
+        l.get(path);
+      }
+      console.timeEnd(`test ${i}`);
     }
+  });
 
-    for (let i = 1; i <= 3; i++) {
-      console.time(`test ${i} map`);
-      l.map((item) => item);
-      console.timeEnd(`test ${i} map`);
-    }
+  describe('Shredder perf.', function () {
+    it('#test map vs mapShredder', function () {
+      let l = new Shredder(bimBamBoum);
 
-    l = new Shredder(bimBamBoum);
+      for (let i = 0; i < 2_000_000; i++) {
+        l = l.push('', i);
+      }
 
-    for (let i = 0; i < 2_000_000; i++) {
-      l = l.push('', i);
-    }
+      for (let i = 1; i <= 3; i++) {
+        console.time(`test ${i} map`);
+        l.map((item) => item);
+        console.timeEnd(`test ${i} map`);
+      }
 
-    for (let i = 1; i <= 3; i++) {
-      console.time(`test ${i} mapShredder`);
-      l.map((item, ...args) => {
-        item = new Shredder(item);
-        return (item, ...args) => item;
-      });
-      console.timeEnd(`test ${i} mapShredder`);
-    }
+      l = new Shredder(bimBamBoum);
+
+      for (let i = 0; i < 2_000_000; i++) {
+        l = l.push('', i);
+      }
+
+      for (let i = 1; i <= 3; i++) {
+        console.time(`test ${i} mapShredder`);
+        l.map((item, ...args) => {
+          item = new Shredder(item);
+          return (item, ...args) => item;
+        });
+        console.timeEnd(`test ${i} mapShredder`);
+      }
+    });
   });
 });
