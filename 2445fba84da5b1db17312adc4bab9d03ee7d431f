@@ -1,0 +1,9 @@
+[
+  {
+    "Module": "xcraft-core-shredder",
+    "Version": "v5.2.0",
+    "Hash": "2445fba",
+    "Dev": "master",
+    "Prod": "5.2"
+  }
+]
