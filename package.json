@@ -19,7 +19,8 @@
   "license": "MIT",
   "dependencies": {
     "immutable": "4.0.0-rc.14",
-    "deep-equal": "^1.0.1"
+    "deep-equal": "^1.0.1",
+    "xcraft-immutablepatch": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
