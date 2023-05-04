@@ -7,8 +7,8 @@ const bimBam = {bim: 'bam'};
 const bimBamBoum = [];
 const grosMinet = {gros: 'minet'};
 
-describe('Shredder can', function () {
-  it('#set', function () {
+describe('shredder', function () {
+  it('set', function () {
     const s = new Shredder(bimBam);
     const n = s.set('titi', grosMinet);
 
@@ -21,7 +21,7 @@ describe('Shredder can', function () {
     expect(s.toJS()).to.be.eql(bimBam);
   });
 
-  it('#set an empty path', function () {
+  it('set an empty path', function () {
     const s = new Shredder(bimBam);
 
     const n = s.set('', grosMinet);
@@ -30,7 +30,7 @@ describe('Shredder can', function () {
     expect(s.toJS()).to.be.eql(bimBam);
   });
 
-  it('#set a simple path with a bracket', function () {
+  it('set a simple path with a bracket', function () {
     const s = new Shredder(bimBam);
 
     const n = s.set('boom[1]', grosMinet);
@@ -42,7 +42,7 @@ describe('Shredder can', function () {
     expect(s.toJS()).to.be.eql(bimBam);
   });
 
-  it('#set a cool path', function () {
+  it('set a cool path', function () {
     const s = new Shredder(bimBam);
 
     const n = s.set('blim.bla.boom[1].splif[3].splaf', grosMinet);
@@ -71,14 +71,14 @@ describe('Shredder can', function () {
     expect(s.toJS()).to.be.eql(bimBam);
   });
 
-  it('#del', function () {
+  it('del', function () {
     const s = new Shredder(bimBam);
     const n = s.del('bim');
 
     expect(n.toJS()).to.be.eql({});
   });
 
-  it('#find', function () {
+  it('find', function () {
     // Return value (not immutable)
     let s = new Shredder(['glace', 'chat', 'bob']);
     let res = s.find((item) => item === 'chat');
@@ -100,8 +100,10 @@ describe('Shredder can', function () {
   });
 });
 
-describe('Shredder perf. set/get', function () {
-  it('#test set/get', function () {
+describe('shredder (performance)', function () {
+  it(`test set/get (×2'000'000)`, function () {
+    this.timeout(10000);
+
     let l = new Shredder(bimBamBoum);
 
     for (let i = 1; i <= 3; ++i) {
@@ -118,34 +120,34 @@ describe('Shredder perf. set/get', function () {
     }
   });
 
-  describe('Shredder perf.', function () {
-    it('#test map vs mapShredder', function () {
-      let l = new Shredder(bimBamBoum);
+  it(`test map vs mapShredder (×2'000'000)`, function () {
+    this.timeout(10000);
 
-      for (let i = 0; i < 2_000_000; i++) {
-        l = l.push('', i);
-      }
+    let l = new Shredder(bimBamBoum);
 
-      for (let i = 1; i <= 3; i++) {
-        console.time(`test ${i} map`);
-        l.map((item) => item);
-        console.timeEnd(`test ${i} map`);
-      }
+    for (let i = 0; i < 2_000_000; i++) {
+      l = l.push('', i);
+    }
 
-      l = new Shredder(bimBamBoum);
+    for (let i = 1; i <= 3; i++) {
+      console.time(`test ${i} map`);
+      l.map((item) => item);
+      console.timeEnd(`test ${i} map`);
+    }
 
-      for (let i = 0; i < 2_000_000; i++) {
-        l = l.push('', i);
-      }
+    l = new Shredder(bimBamBoum);
 
-      for (let i = 1; i <= 3; i++) {
-        console.time(`test ${i} mapShredder`);
-        l.map((item, ...args) => {
-          item = new Shredder(item);
-          return (item, ...args) => item;
-        });
-        console.timeEnd(`test ${i} mapShredder`);
-      }
-    });
+    for (let i = 0; i < 2_000_000; i++) {
+      l = l.push('', i);
+    }
+
+    for (let i = 1; i <= 3; i++) {
+      console.time(`test ${i} mapShredder`);
+      l.map((item, ...args) => {
+        item = new Shredder(item);
+        return (item, ...args) => item;
+      });
+      console.timeEnd(`test ${i} mapShredder`);
+    }
   });
 });
