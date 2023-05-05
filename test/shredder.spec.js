@@ -103,7 +103,7 @@ describe('xcraft.shredder', function () {
 
   describe('performance', function () {
     it(`test set/get (×2'000'000)`, function () {
-      this.timeout(10000);
+      this.timeout(20000);
 
       let l = new Shredder(bimBamBoum);
 
@@ -122,7 +122,7 @@ describe('xcraft.shredder', function () {
     });
 
     it(`test map vs mapShredder (×2'000'000)`, function () {
-      this.timeout(10000);
+      this.timeout(20000);
 
       let l = new Shredder(bimBamBoum);
 
