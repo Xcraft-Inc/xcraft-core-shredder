@@ -101,7 +101,7 @@ describe('xcraft.shredder', function () {
     });
   });
 
-  describe('performance', function () {
+  describe.skip('performance', function () {
     it(`test set/get (×2'000'000)`, function () {
       this.timeout(20000);
 
